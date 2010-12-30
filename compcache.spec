@@ -37,7 +37,7 @@ Compressing pages and keeping them in RAM virtually increases its
 capacity. This allows more applications to fit in given amount of
 memory.
 
-%package -n kernel%{_alt_kernel}-drivers-compcache
+%package -n kernel%{_alt_kernel}-block-compcache
 Summary:	Compressed Caching for Linux
 Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
@@ -47,7 +47,7 @@ Requires(post,postun):	/sbin/depmod
 Requires(postun):	%releq_kernel
 %endif
 
-%description -n kernel%{_alt_kernel}-drivers-compcache
+%description -n kernel%{_alt_kernel}-block-compcache
 compcache Linux kernel driver.
 
 %prep
@@ -61,21 +61,21 @@ compcache Linux kernel driver.
 %install
 rm -rf $RPM_BUILD_ROOT
 %if %{with kernel}
-%install_kernel_modules -m ramzswap -d kernel/drivers/md
+%install_kernel_modules -m ramzswap -d kernel/block
 %endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-n kernel%{_alt_kernel}-drivers-compcache
+%post	-n kernel%{_alt_kernel}-block-compcache
 %depmod %{_kernel_ver}
 
-%postun	-n kernel%{_alt_kernel}-drivers-compcache
+%postun	-n kernel%{_alt_kernel}-block-compcache
 %depmod %{_kernel_ver}
 
 %if %{with kernel}
-%files -n kernel%{_alt_kernel}-drivers-compcache
+%files -n kernel%{_alt_kernel}-block-compcache
 %defattr(644,root,root,755)
 %doc README Changelog
-/lib/modules/%{_kernel_ver}/kernel/drivers/md/*.ko*
+/lib/modules/%{_kernel_ver}/kernel/block/*.ko*
 %endif
